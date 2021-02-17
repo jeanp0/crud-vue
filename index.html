@@ -3,14 +3,19 @@
 
 <head>
   <meta charset="UTF-8">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-  <!-- SWEET ALERT -->
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+  <!-- Style frameworeks -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.12.3/dist/sweetalert2.min.css">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
   <style>
-    .swal2-content, .swal2-actions {
+    .swal2-content,
+    .swal2-actions,
+    .swal2-header {
       font-family: Arial, sans-serif;
     }
   </style>
@@ -31,11 +36,11 @@
             <template v-slot:default>
               <thead class="">
                 <tr class="blue-grey darken-1">
-                  <th class="white--text text-center">ID</th>
-                  <th class="white--text text-center">DESCRIPCIÓN</th>
-                  <th class="white--text text-center">PRECIO</th>
-                  <th class="white--text text-center">STOCK</th>
-                  <th class="white--text text-center"></th>
+                  <th scope="id" class="white--text text-center">ID</th>
+                  <th scope="description" class="white--text text-center">DESCRIPCIÓN</th>
+                  <th scope="price" class="white--text text-center">PRECIO</th>
+                  <th scope="stock" class="white--text text-center">STOCK</th>
+                  <th scope="actions" class="white--text text-center"></th>
                 </tr>
               </thead>
               <tbody>
@@ -45,7 +50,9 @@
                   <td class="text-center">{{ articulo.precio }}</td>
                   <td class="text-center">{{ articulo.stock }}</td>
                   <td class="text-center d-flex justify-space-around align-center">
-                    <v-btn color="blue darken-1 white--text" @click="formEditar(articulo.id, articulo.descripcion, articulo.precio, articulo.stock)">Editar</v-btn>
+                    <v-btn color="blue darken-1 white--text"
+                      @click="formEditar(articulo.id, articulo.descripcion, articulo.precio, articulo.stock)">Editar
+                    </v-btn>
                     <v-btn color="error" @click="eliminar(articulo.id)">Eliminar</v-btn>
                   </td>
                 </tr>

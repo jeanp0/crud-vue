@@ -1,6 +1,8 @@
 <?php
 include_once 'conexion.php';
+
 $objeto = new Conexion();
+// Conexion::Conectar()
 $conexion = $objeto->Conectar();
 
 $_POST = json_decode(file_get_contents("php://input"), true);
@@ -53,6 +55,8 @@ switch ($opcion) {
         $consulta = "DELETE FROM articulos WHERE id='$id' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
+        break;
+    default:
         break;
 }
 echo json_encode($data, JSON_UNESCAPED_UNICODE);

@@ -32,7 +32,9 @@
             <v-btn class="" color="success" @click="formNuevo()">Crear</v-btn>
           </div>
 
+          <!-- the main table -->
           <v-simple-table class="">
+            <!-- template is to bind data with DOM -->
             <template v-slot:default>
               <thead class="">
                 <tr class="blue-grey darken-1">
@@ -44,14 +46,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="articulo in articulos" :key="articulo.id">
+                <tr v-for="articulo of articulos" :key="articulo.id">
                   <td class="text-center">{{ articulo.id }}</td>
-                  <td class="text-center">{{ articulo.descripcion }}</td>
-                  <td class="text-center">{{ articulo.precio }}</td>
+                  <td class="text-center">{{ articulo.description }}</td>
+                  <td class="text-center">{{ articulo.price }}</td>
                   <td class="text-center">{{ articulo.stock }}</td>
                   <td class="text-center d-flex justify-space-around align-center">
                     <v-btn color="blue darken-1 white--text"
-                      @click="formEditar(articulo.id, articulo.descripcion, articulo.precio, articulo.stock)">Editar
+                      @click="formEditar(articulo.id, articulo.description, articulo.price, articulo.stock)">Editar
                     </v-btn>
                     <v-btn color="error" @click="eliminar(articulo.id)">Eliminar</v-btn>
                   </td>
@@ -60,35 +62,37 @@
             </template>
           </v-simple-table>
 
+          <!-- Dialog to create/update a article -->
           <v-dialog v-model="dialog" max-width="500">
+
             <v-card>
               <v-card-title class="blue-grey darken-1 white--text">Artículo</v-card-title>
-              <v-card-text>
+              <v-card-text class="mt-7">
                 <v-form>
                   <v-container>
                     <v-row>
                       <input v-model="articulo.id" hidden />
-                      <v-col cols="12">
-                        <v-text-field v-model="articulo.descripcion" label="Descripción" solo required></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field v-model="articulo.precio" label="Precio" type="number" prefix="$" solo required>
-                        </v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field v-model="articulo.stock" label="Stock" type="number" solo required></v-text-field>
-                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="articulo.description" label="Descripción" solo required></v-text-field>
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="articulo.price" label="Precio" type="number" prefix="$" solo required>
+                      </v-text-field>
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="articulo.stock" label="Stock" type="number" solo required></v-text-field>
                     </v-row>
                   </v-container>
                 </v-form>
               </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
+
+              <v-card-actions class="justify-end">
+                <v-btn color="blue darken-1 white--text" @click="guardar()" type="submit">Guardar</v-btn>
                 <v-btn color="grey darken-1 white--text" @click="dialog=false">Cancelar</v-btn>
-                <v-btn color="blue darken-1 white--text" @click="guardar(articulo.id)" type="submit">Guardar</v-btn>
               </v-card-actions>
-              </v-form>
             </v-card>
+
           </v-dialog>
 
         </v-card>
@@ -96,6 +100,7 @@
     </v-app>
   </div>
 
+  <!-- Vue.js -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <!-- SWEET ALERT -->
@@ -104,6 +109,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"
     integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ=="
     crossorigin="anonymous"></script>
+
   <script src="app.js"></script>
 </body>
 

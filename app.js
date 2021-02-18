@@ -12,20 +12,33 @@ new Vue({
     operacion: "",
     articulo: {
       id: null,
-      descripcion: "",
-      precio: "",
+      description: "",
+      price: "",
       stock: "",
     },
   },
 
   created() {
+    // una vez creado, se listan los articulos
     this.mostrar();
   },
 
   methods: {
+    validateInputs: function () {
+      // return true if article is complete
+      isComplete = false;
+      if (
+        this.articulo.description ||
+        this.articulo.price ||
+        this.articulo.stock
+      ) {
+        isComplete = true;
+      }
+      return isComplete;
+    },
     limpiarArticulo: function () {
-      this.articulo.descripcion = "";
-      this.articulo.precio = "";
+      this.articulo.description = "";
+      this.articulo.price = "";
       this.articulo.stock = "";
     },
     //muestra todos los artículos
@@ -38,8 +51,8 @@ new Vue({
       axios
         .post(url, {
           opcion: 2,
-          descripcion: this.articulo.descripcion,
-          precio: this.articulo.precio,
+          description: this.articulo.description,
+          price: this.articulo.price,
           stock: this.articulo.stock,
         })
         .then(() => {
@@ -52,8 +65,8 @@ new Vue({
         .post(url, {
           opcion: 3,
           id: this.articulo.id,
-          descripcion: this.articulo.descripcion,
-          precio: this.articulo.precio,
+          description: this.articulo.description,
+          price: this.articulo.price,
           stock: this.articulo.stock,
         })
         .then(() => {
@@ -67,22 +80,22 @@ new Vue({
         icon: "warning",
         confirmButtonText: "Confirmar",
         showCancelButton: true,
+        cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
           axios.post(url, { opcion: 4, id: id }).then(() => {
             this.mostrar();
           });
           Swal.fire("Registro eliminado.", "", "success");
-        } else if (result.isDenied) {
         }
       });
     },
     //botones y formularios
     guardar: function () {
+      if (!this.validateInputs()) return;
       if (this.operacion === "crear") {
         this.crear();
-      }
-      if (this.operacion === "editar") {
+      } else if (this.operacion === "editar") {
         this.editar();
       }
       this.dialog = false;
@@ -92,10 +105,10 @@ new Vue({
       this.operacion = "crear";
       this.limpiarArticulo();
     },
-    formEditar: function (id, descripcion, precio, stock) {
+    formEditar: function (id, description, price, stock) {
       this.articulo.id = id;
-      this.articulo.descripcion = descripcion;
-      this.articulo.precio = precio;
+      this.articulo.description = description;
+      this.articulo.price = price;
       this.articulo.stock = stock;
       this.dialog = true;
       this.operacion = "editar";
